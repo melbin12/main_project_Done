@@ -1,0 +1,349 @@
+{% extends 'base.html' %}ss
+{% load static %}
+{% block content %}
+
+		<main class="main">
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+			
+				</div><!-- End .container -->
+			</nav>
+			<br><br><br>
+			<div class="page-header">
+				<div class="container">
+					<h1>Login and Create Account</h1>
+					{% include 'alert.html' %}
+
+						<script>
+							setTimeout(function(){
+							  if ($('#msg').length > 0){
+								$('#msg').remove();
+								}
+							  },4000)
+					  
+						</script>
+				</div><!-- End .container -->
+			</div><!-- End .page-header -->
+
+			<div class="container">
+				<div class="row row-sparse">
+					<script>
+						function validateS()
+					   {
+						   var a=document.getElementById("Lemail").value;
+						   var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+						   if(a=="")
+					{
+						document.getElementById('Lel').style.display = "block";
+	
+						document.getElementById('Lel').innerHTML="**Please Enter  Email";
+						return false;
+					}
+						   if(a!="" && st.test(a)==false){
+	   
+							   document.getElementById('Lel').style.display = "block";
+							   document.getElementById('Lel').innerHTML = "Invalid Email id";
+							   return false;
+						   }
+						   else{
+							   document.getElementById('Lel').style.display = "none";
+						   }
+							var d=document.getElementById('Lpassword').value;
+	   
+							if(d=="")
+					{
+						document.getElementById('Lpss').style.display = "block";
+	
+						document.getElementById('Lpss').innerHTML="**Please Enter  password";
+						return false;
+					}
+					   else{
+							   document.getElementById('Lpss').style.display = "none";
+						   }
+			
+	   
+					   }
+					   function onclearS()
+					   {
+						document.getElementById('Lpss').style.display = "none";
+					   }
+					   </script>
+					<div class="col-md-6">
+						<div class="heading">
+							<h2 class="title">Login</h2>
+							<p>If you have an account with us, please log in.</p>
+						</div><!-- End .heading -->
+
+						<form action="{% url 'login' %}" method="post" onsubmit="return validateS();">
+							{% csrf_token %}
+							<input type="email" id="Lemail" class="form-control" placeholder="Email Address" name="email" onblur="return validateS()" onKeyUp="return validateS()">
+							<span id="Lel" style="color: red;"></span>
+							<input type="password" id="Lpassword" class="form-control" placeholder="Password" name="password" onclick="return onclearS()">
+							<span id="Lpss" style="color: red;"></span>
+							<div class="form-footer">
+								
+								<button type="submit" class="btn btn-primary">LOGIN</button>
+								<a href="{% url 'forgotPassword' %}" class="forget-pass"> Forgot your password?</a>
+
+							</div><!-- End .form-footer -->
+						</form>
+					</div><!-- End .col-md-6 -->
+
+					<div class="col-md-6">
+						<div class="heading">
+							<h2 class="title">Create An Account</h2>
+						</div><!-- End .heading -->
+						
+
+						<script>
+							function validate()
+						   {
+							   var f=document.getElementById("fname").value.trim();
+							   var l=document.getElementById("lname").value;
+							   var s=/^[a-zA-Z^\s]+$/;
+							   if(f=="")
+						{
+							document.getElementById('fn').style.display = "block";
+		
+							document.getElementById('fn').innerHTML="**Please Enter  First Name";
+							return false;
+						}
+							   if(f!="" && s.test(f)==false){
+		   
+								   document.getElementById('fn').style.display = "block";
+								   document.getElementById('fn').innerHTML = "Invalid Fname";
+								   return false;
+							   }
+							   else{
+								   document.getElementById('fn').style.display = "none";
+							   }
+							   if(l=="")
+						{
+							document.getElementById('ln').style.display = "block";
+		
+							document.getElementById('ln').innerHTML="**Please Enter  Last Name";
+							return false;
+						}
+							   if(l!="" && s.test(l)==false){
+		   
+								   document.getElementById('ln').style.display = "block";
+								   document.getElementById('ln').innerHTML = "Invalid Lname";
+								   return false;
+							   }
+							   else{
+								   document.getElementById('ln').style.display = "none";
+							   }
+		   
+							   var a=document.getElementById("email").value;
+							   var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+							   if(a=="")
+						{
+							document.getElementById('el').style.display = "block";
+		
+							document.getElementById('el').innerHTML="**Please Enter  Email";
+							return false;
+						}
+							   if(a!="" && st.test(a)==false){
+		   
+								   document.getElementById('el').style.display = "block";
+								   document.getElementById('el').innerHTML = "Invalid Email id";
+								   return false;
+							   }
+							   else{
+								   document.getElementById('el').style.display = "none";
+							   }
+		   
+							   var ph = document.getElementById("tel").value;
+							   var expr = /^[6-9]\d{9}$/;
+							   if(ph=="")
+						{
+							document.getElementById('pe').style.display = "block";
+		
+							document.getElementById('pe').innerHTML="**Please Enter  phone";
+							return false;
+						}
+							   if(ph!="" && expr.test(ph)==false){
+								   document.getElementById('pe').style.display = "block";
+								   document.getElementById('pe').innerHTML = "Invalid Phone number";
+								   return false;
+										   }
+										   else{
+								   document.getElementById('pe').style.display = "none";
+							   }
+								var d=document.getElementById('password').value;
+		   
+								var e=document.getElementById('cpassword').value;
+								if(d=="")
+								{
+									document.getElementById('pss').style.display = "block";
+				
+									document.getElementById('pss').innerHTML="**Please Enter  password";
+									return false;
+								}
+								else{
+										document.getElementById('pss').style.display = "none";
+									}
+									
+							   if(e=="")
+						{
+							document.getElementById('cpss').style.display = "block";
+		
+							document.getElementById('cpss').innerHTML="**Please Enter Conform password";
+							return false;
+						}
+		   
+									if(d!=e)
+									{
+										document.getElementById('cpss').style.display = "block";
+					
+										document.getElementById('cpss').innerHTML="**Incorrect Password";
+										return false;
+									}
+								   else
+									 {
+										 document.getElementById('cpss').style.display = "none";
+		   
+							   return true;
+						   }
+		   
+		   
+						   }
+						   function onclear()
+						   {
+							document.getElementById('pss').style.display = "none";
+						   }
+						   </script>
+
+						<form action="{% url 'register' %}" method="post" onsubmit="return validate()">
+							{% csrf_token %}
+							<input type="text" name="fname" id="fname" class="form-control" placeholder="First Name" onblur="return validate()" onKeyUp="return validate()">
+							<span id="fn" style="color: red;"></span>
+							<input type="text" name="lname" id="lname" class="form-control" placeholder="Last Name" onblur="return validate()" onKeyUp="return validate()">
+							<span id="ln" style="color: red;"></span>
+							<h2>Login information</h2>
+							<input type="email" name="email" id="email" class="form-control" placeholder="Email Address" onblur="return validate()" onKeyUp="return validate()">
+							<span id="el" style="color: red;"></span>
+							<input type="tel" maxlength="10"  name="tel" id="tel" class="form-control" placeholder="phon no." onblur="return validate()" onKeyUp="return validate()">
+							<span id="pe" style="color: red;"></span>
+							<div>
+							<input type="password" name="password" id="password" class="form-control" placeholder="Password" onclick="return onclear()" >
+							<span id="pss" style="color: red;"></span>
+							<style>
+								/* The message box is shown when the user clicks on the password field */
+								   #message {
+								   display:none;
+								   background:#fff;
+								   color: #000;
+								   position: relative;
+								   padding: 20px;
+								   margin-top: 10px;
+								   }
+								 #message p {
+								   padding: 1px 35px;
+								   font-size: 14px;
+								   }
+								   /* Add a green text color and a checkmark when the requirements are right */
+								   .valid {
+								   color: green;
+								   }
+
+								   .valid:before {
+								   position: relative;
+								   left: -25px;
+								   content: "✔";
+								   }
+
+								   /* Add a red text color and an "x" when the requirements are wrong */
+								   .invalid {
+								   color: red;
+								   }
+
+								   .invalid:before {
+								   position: relative;
+								   left: -25px;
+								   content: "✖";
+								   }
+								   </style>
+
+							                         <div id="message">
+                                                      <!--<h4 style="color:rgb(249, 164, 61) ;">Password must contain the following:</h4>-->
+                                                        <p id="letter" class="invalid">A lowercase letter</p>
+                                                        <p id="capital" class="invalid">A capital (uppercase) letter</p>
+                                                        <p id="number" class="invalid">A number</p>
+                                                        <p id="length" class="invalid">Minimum 8 characters</b></p>
+                                                     </div>
+                                                <script>
+                                        var myInput = document.getElementById("password");
+                                        var letter = document.getElementById("letter");
+                                        var capital = document.getElementById("capital");
+                                        var number = document.getElementById("number");
+                                        var length = document.getElementById("length");
+                                        myInput.onfocus = function() {
+                                        document.getElementById("message").style.display = "block";
+                                        }
+                                        myInput.onblur = function() {
+                                        document.getElementById("message").style.display = "none";
+                                        }
+                                        // When the user starts to type something inside the password field
+                                        myInput.onkeyup = function() {
+                                        // Validate lowercase letters
+                                        var lowerCaseLetters = /[a-z]/g;
+                                        if(myInput.value.match(lowerCaseLetters)) {
+                                            letter.classList.remove("invalid");
+                                            letter.classList.add("valid");
+                                        } else {
+                                            letter.classList.remove("valid");
+                                            letter.classList.add("invalid");
+                                        }
+
+                                        // Validate capital letters
+                                        var upperCaseLetters = /[A-Z]/g;
+                                        if(myInput.value.match(upperCaseLetters)) {
+                                            capital.classList.remove("invalid");
+                                            capital.classList.add("valid");
+                                        } else {
+                                            capital.classList.remove("valid");
+                                            capital.classList.add("invalid");
+                                        }
+
+                                        // Validate numbers
+                                        var numbers = /[0-9]/g;
+                                        if(myInput.value.match(numbers)) {
+                                            number.classList.remove("invalid");
+                                            number.classList.add("valid");
+                                        } else {
+                                            number.classList.remove("valid");
+                                            number.classList.add("invalid");
+                                        }
+
+                                        // Validate length
+                                        if(myInput.value.length >= 8) {
+                                            length.classList.remove("invalid");
+                                            length.classList.add("valid");
+                                        } else {
+                                            length.classList.remove("valid");
+                                            length.classList.add("invalid");
+                                        }
+                                        }
+                                    </script>
+								</div>
+							<input type="password" id="cpassword"  name="cpassword" class="form-control" placeholder="Confirm Password" onblur="return validate()" onKeyUp="return validate()">
+							<span id="cpss" style="color: red;"></span>
+
+							{% comment %} <div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" id="newsletter-signup">
+								
+							</div><!-- End .custom-checkbox --> {% endcomment %}
+
+							<div class="form-footer">
+								<button type="submit" class="btn btn-primary">Create Account</button>
+							</div><!-- End .form-footer -->
+						</form>
+					</div><!-- End .col-md-6 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-5"></div><!-- margin -->
+		</main><!-- End .main -->
+
+		{% endblock %}

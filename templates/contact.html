@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+		<main class="main">
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Pages</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+					</ol>
+				</div><!-- End .container -->
+			</nav>
+
+			<div class="page-header">
+				<div class="container">
+					<h1>Contact Us</h1>
+				</div><!-- End .container -->
+			</div><!-- End .page-header -->
+
+			<div class="container">
+				<div id="map"></div><!-- End #map -->
+
+				<div class="row row-sparse">
+					<div class="col-md-8">
+						<h2 class="light-title">Write <strong>Us</strong></h2>
+
+						<form action="{% url 'wether' %}" method="GET" onsubmit="return validateS();">
+							<div class="form-group required-field">
+								<label for="cities">City Name</label>
+								<input type="text" class="form-control" id="contact-name" name="location" required>
+							</div><!-- End .form-group -->
+
+							{% comment %} <div class="form-group required-field">
+								<label for="contact-email">Email</label>
+								<input type="email" class="form-control" id="cities " name="location" placeholder="Enter City Name" required>
+							</div><!-- End .form-group -->
+
+							<div class="form-group">
+								<label for="contact-phone">Phone Number</label>
+								<input type="tel" class="form-control" id="contact-phone" name="contact-phone">
+							</div><!-- End .form-group -->
+
+							<div class="form-group required-field">
+								<label for="contact-message">What’s on your mind?</label>
+								<textarea cols="30" rows="1" id="contact-message" class="form-control" name="contact-message" required></textarea>
+							</div><!-- End .form-group --> {% endcomment %}
+
+							<div class="form-footer">
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div><!-- End .form-footer -->
+						</form>
+						<span>
+							<h1></h1>
+						</span>
+					</div><!-- End .col-md-8 -->
+
+					<div class="col-md-4">
+						<h2 class="light-title"><span>{{ city_name }}</span></h2><br><br>
+						<h2 class="light-title"><span>{{ city_tempracher }}</span></h2><br><br>
+						<h2 class="light-title"><span>{{ city_pressure }}</span></h2><br><br>
+						<h2 class="light-title"><span>{{ city_humidity }}</span></h2><br>
+
+						
+						<div class="contact-info">
+							
+						</div><!-- End .contact-info -->
+					</div><!-- End .col-md-4 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-8"></div><!-- margin -->
+		</main><!-- End .main -->
+
+		{% endblock %}

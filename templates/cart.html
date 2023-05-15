@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+
+<main class="main">
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					{% comment %} <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Men</a></li>
+						<li class="breadcrumb-item"><a href="#">Accessories</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Classic Crew Neck Sweatshirt</li>
+					</ol> {% endcomment %}
+				</div><!-- End .container -->
+			</nav>
+
+			<div class="page-header">
+				<div class="container">
+					<h1>Shopping Cart</h1>
+				</div><!-- End .container -->
+			</div><!-- End .page-header -->
+
+			<div class="container">
+				<div class="row row-sparse">
+					<div class="col-lg-8 padding-right-lg">
+						<div class="cart-table-container">
+							<table class="table table-cart">
+								<thead>
+									<tr>
+										<th class="product-col">Product</th>
+										<th class="price-col">Price</th>
+										<th class="qty-col">Qty</th>
+										<th>Subtotal</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									{% for i in cart %}									
+									<tr class="product-row">
+										<td class="product-col">
+											<figure class="product-image-container">
+												<a href="{% url 'product_d' i.id %}" class="product-image">
+													<img src="{{i.product.product_image.url}}" alt="product" style="width:90px;height:90px">
+												</a>
+											</figure>
+											<h2 class="product-title">
+												<a href="product.html">{{i.product.name}}</a>
+											</h2>
+										</td>
+										<td>₹ {{i.product.selling_price}}</td>
+										<td>
+											<div class="quantity">
+												{% comment %} <label for="quantity">Quantity:</label> {% endcomment %}
+												<a href="{% url 'minusqty' i.id %}"><button class="decrement"  >-</button></a>
+												<input type="text" value="{{i.product_qty}}" min="1" readonly style="width:30px;">
+												<a href="{% url 'plusqty' i.id %}"><button class="increment" >+</button></a>
+											  </div>
+		
+											<style>
+											.quantity {
+											  display: flex;
+											  align-items: center;
+											  margin-top: 10px;
+											}
+											
+											label {
+											  margin-right: 10px;
+											}
+											
+											button {
+											  background-color: #f2f2f2;
+											  border: none;
+											  padding: 5px 10px;
+											  font-size: 16px;
+											  cursor: pointer;
+											}
+											
+											button:hover {
+											  background-color: #e6e6e6;
+											}
+											
+											button:active {
+											  background-color: #d9d9d9;
+											}
+											
+											input[type="number"] {
+											  width: 25px;
+											  text-align: center;
+											}
+										  </style>
+										</td>
+										<td>{{i.price}}</td>
+									</tr>			
+									<tr class="product-action-row">
+										<td colspan="4" class="clearfix">
+											
+											
+											<div class="float-right">
+												<a href="{% url 'de_cart' i.id %}" title="Remove product" class="btn-remove icon-cancel"><span class="sr-only">Remove</span></a>
+											</div><!-- End .float-right -->
+										</td>
+									</tr>
+									{% endfor %}
+
+
+
+
+								</tbody>
+								
+
+								<tfoot>
+									<tr>
+										<td colspan="4" class="clearfix">
+											<div class="float-left">
+												<a href="{% url 'index' %}" class="btn btn-outline-secondary">Continue Shopping</a>
+											</div><!-- End .float-left -->
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div><!-- End .cart-table-container -->
+					</div><!-- End .col-lg-8 -->
+
+					<div class="col-lg-4">
+						<div class="cart-summary">
+							<h3>Summary</h3>
+
+							<h4>
+								<a data-toggle=""  class="collapsed" role="button" aria-expanded="false" aria-controls="total-estimate-section">Estimate Shipping and Tax</a>
+							</h4>
+							<table class="table table-totals">
+								
+								<tfoot>
+									<tr>
+										<td>Total</td>
+										<td>{{total}}</td>
+									</tr>
+								</tfoot>
+							</table>
+
+							<div class="checkout-methods">
+								<a href="{% url 'checkout' %}" class="btn btn-block btn-sm btn-primary" >Go to Checkout</a>
+							</div><!-- End .checkout-methods -->
+						</div><!-- End .cart-summary -->
+					</div><!-- End .col-lg-4 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+		 <div class="mb-6"></div><!-- margin -->
+		</main><!-- End .main -->
+
+		{% endblock %}

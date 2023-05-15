@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+
+		<main class="main">
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					{% comment %} <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Men</a></li>
+						<li class="breadcrumb-item"><a href="#">Accessories</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Classic Crew Neck Sweatshirt</li>
+					</ol> {% endcomment %}
+				</div><!-- End .container -->
+			</nav>
+
+			<div class="page-header">
+				<div class="container">
+					<h1>Checkout</h1>
+				</div><!-- End .container -->
+			</div><!-- End .page-header -->
+
+			<div class="container">
+				<ul class="checkout-progress-bar">
+					<li class="active">
+						<span>Shipping</span>
+					</li>
+					<li>
+						<span>Review &amp; Payments</span>
+					</li>
+				</ul>
+				<div class="row row-sparse" >
+					<div class="col-lg-8 padding-right-lg" >
+						<ul class="checkout-steps">
+							<li>
+								<h2 class="step-title">Shipping Address</h2>
+								{% comment %} {% for i in address|slice:":3" %} {% endcomment %}
+								{% for i in address %}
+								<div style="display:inline-block;" >
+									<div class="shipping-address-box active" style="width:300px">
+								
+									<address>
+											
+											<input type="radio" value="{{i.id}}" name="radio">
+											<table style="margin-left:22px;margin-top:-25px;">
+												<tr><td style="color:#000;font-weight:bold;">{{i.fname}} {{i.lname}}</td></tr>
+												<tr><td style="color:#000;font-weight:bold;">{{i.phone_no}}</td></tr>
+												<tr><td style="color:#000;font-weight:bold;">{{i.email}}</td></tr>
+												<tr><td style="color:#000;font-weight:bold;">{{i.street}}, {{i.city}}</td></tr>
+												<tr><td style="color:#000;font-weight:bold;">{{i.district}}, pin-{{i.pin}}</td></tr>
+											<tr> <td> ________________________</td></tr>
+											<tr class="product-action-row">
+												<td colspan="4" class="clearfix">
+													
+													
+													<div class="float-right">
+														<a href="{% url 'de_addres_ch' i.id %}" title="Remove product" class="btn-remove icon-cancel"><span class="sr-only">Remove</span></a>
+													</div><!-- End .float-right -->
+												</td>
+											</tr>
+											</table>
+										</address>
+									
+									</div><!-- End .shipping-address-box -->
+							
+								
+								</div><!-- End .shipping-step-addresses -->
+								{% endfor %}
+								
+								<a href="{% url 'address' %}" class="btn btn-sm btn-outline-secondary btn-new-address" >+ New Address</a>
+								{% comment %} {% endif %} {% endcomment %}
+							</li>
+						</ul>
+					</div><!-- End .col-lg-8 -->
+					
+					<div class="col-lg-4">
+						<div class="order-summary">
+							<h3>Summary</h3>
+							<h4>
+								<a data-toggle="collapse" href="#order-cart-section" class="collapsed" role="button" aria-expanded="false" aria-controls="order-cart-section">{{len}} products in Cart</a>
+							</h4>
+							{% for i in cart %}	
+
+							<div class="collapse" id="order-cart-section">
+								<table class="table table-mini-cart">
+									<tbody>
+										<tr>
+											<td class="product-col">
+												<figure class="product-image-container">
+													<a class="product-image">
+														<img src="{{i.product.product_image.url}}" alt="product">
+													</a>
+												</figure>
+												<div>
+													<h2 class="product-title">
+														<a 	>{{i.product.name}}</a>
+													</h2>
+
+													<span class="product-qty">{{i.product_qty}}</span>
+												</div>
+											</td>
+											<td class="price-col">₹ {{i.product.selling_price}}</td>
+										</tr>
+									</tbody>	
+								</table>
+							</div><!-- End #order-cart-section -->
+							{% endfor %}
+						</div><!-- End .order-summary -->
+						<div class="cart-summary">
+							{% comment %} <h3>Summary</h3> {% endcomment %}
+
+							<h4>
+								<a data-toggle=""  class="collapsed" role="button" aria-expanded="false" aria-controls="total-estimate-section">Estimate Shipping and Tax</a>
+							</h4>
+							<table class="table table-totals">
+								{% comment %} <tbody>
+									<tr>
+										<td>Subtotal</td>
+										<td>{{total}}</td>
+									</tr>
+									<tr>
+										<td>Tax</td>
+										<td>$0.00</td>
+									</tr>
+								</tbody> {% endcomment %}
+								<tfoot>
+									<tr>
+										<td>Total</td>
+										<td>{{total}}</td>
+									</tr>
+									<tr>
+										<td>GST</td>
+										<td>{{gst|floatformat:0}}</td>
+									</tr>
+									<tr>
+										<td>Order Total</td>
+										<td>{{grandtotal|floatformat:0}}</td>
+									</tr>
+								</tfoot>
+							</table>
+
+							
+						</div><!-- End .cart-summary -->
+					</div><!-- End .col-lg-4 -->
+				</div><!-- End .row -->
+
+				<div class="row row-sparse">
+					<div class="col-lg-8">
+						{% comment %} <div class="checkout-steps-action">
+							<a href="checkout-review.html" class="btn btn-primary float-right">NEXT</a>
+						</div><!-- End .checkout-steps-action --> {% endcomment %}
+					</div><!-- End .col-lg-8 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-6"></div><!-- margin -->
+		</main><!-- End .main -->
+		{% comment %} <button >Pay</button> {% endcomment %}
+		<button id="rzp-button1" class="pay-button" style="display:block; margin:0 auto;">Pay Now</button>
+		<style>
+			.pay-button {
+				background-color: #4CAF50; /* Green */
+				border: none;
+				color: white;
+				padding: 15px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 4px 2px;
+				cursor: pointer;
+				border-radius: 5px;
+			  }
+			</style>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_7S55yXWHAiay49", // Enter the Key ID generated from the Dashboard
+    "amount": "{{stotal}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Acme Corp", //your business name
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+    "prefill": {
+        "name": "{{i.fname}}", //your customer's name
+        "email": "{{i.email}}",
+        "contact": "{{i.phone_number}}"
+    },
+	"handler": function (response){
+		console.log("success")
+		var form = document.getElementById["myform"];
+
+
+		var a = response.razorpay_payment_id;
+
+		
+
+		window.location.href = 'http://127.0.0.1:8000/paymentdone?order_id=${response.razorpay_order_id}&cust_id=${response.customer}&payment_id='+a
+
+	},
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+{% endblock %}
+
+		

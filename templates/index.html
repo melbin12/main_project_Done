@@ -1,0 +1,134 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+		<main class="main">
+				  
+			<div class="home-slider owl-carousel owl-theme show-nav-hover nav-big">
+				<div class="home-slide home-slide1 banner">
+
+					{% include 'alert.html' %}
+
+						<script>
+							setTimeout(function(){
+							  if ($('#msg').length > 0){
+								$('#msg').remove();
+								}
+							  },4000)
+							</script>
+							
+					<img class="slide-bg owl-lazy" src="{% static 'assets/images/lazy.png' %}" data-src="{% static 'assets/images/slider/slide4.jpg' %}" style="width:10000px;height:500px" alt="home banner">
+					
+				</div><!-- End .home-slide -->
+			</div><!-- End .home-slider -->
+
+			<section class="container" style="margin-top:-300px">
+				<h2 class="section-title ls-n-10 text-center pt-2 m-b-4">Shop By Category</h2>
+
+				<div class="owl-carousel owl-theme nav-image-center show-nav-hover nav-outer cats-slider">
+					
+					{% for i in category %}
+					{% if i.Type_id == 2 %}
+					<div class="product-category">
+						<a href="{% url 'category_page' i.id %}">
+							<figure>
+								<img src="{{i.category_image.url}}" style="width:350px;height:250px">
+							</figure>
+							<div class="category-content">
+								<h3>{{i.name}}</h3>
+							</div>
+						</a>
+					</div>
+					{% endif %}
+					{% endfor %}
+				</div>
+				<div class="owl-carousel owl-theme nav-image-center show-nav-hover nav-outer cats-slider">
+					
+					{% for i in category %}
+					{% if i.Type_id == 1 %}
+					<div class="product-category">
+						<a href="{% url 'category_page' i.id %}">
+							<figure>
+								<img src="{{i.category_image.url}}" style="width:350px;height:250px">
+							</figure>
+							<div class="category-content">
+								<h3>{{i.name}}</h3>
+							</div>
+						</a>
+					</div>
+					{% endif %}
+					{% endfor %}
+				</div>
+			</section>
+
+			<section class="bg-gray banners-section text-center">
+				<div class="container py-2">
+					<div class="row">
+			{% for i in is_featured %}
+						
+						
+						<div class="col-sm-6 col-lg-3">
+							<div class="home-banner banner banner-sm-vw mb-2">
+								<img src="{{i.product_image.url}}">
+								<div class="banner-layer banner-layer-middle">
+									<h3 class="text-white m-b-1"></h3>
+									<a href="category.html" class="btn btn-light bg-white" role="button">Shop By Fashion</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</section>
+			{% endfor %}
+			
+			{% for i in trending %}
+
+			<section class="container pb-3 mb-1">
+				<h2 class="section-title ls-n-10 text-center pb-2 m-b-4">Featured Products</h2>
+
+				<div class="row py-4">
+					<div class="col-sm-3 col-6">
+						<div class="product-default inner-quickview inner-icon">
+							<figure>
+								<a href="product.html">
+									<img src="{{i.product_image.url}}">
+								</a>
+								<div class="label-group">
+									<span class="product-label label-sale">-30%</span>
+								</div>
+								<div class="btn-icon-group">
+									<button class="btn-icon btn-add-cart" data-toggle="modal" data-target="#addCartModal"><i class="icon-shopping-cart"></i></button>
+								</div>
+							</figure>
+							<div class="product-details">
+								<div class="category-wrap">
+									<div class="category-list">
+										<a href="category.html" class="product-category">category</a>
+									</div>
+								</div>
+								<h3 class="product-title">
+									<a href="product.html">Product Short Name</a>
+								</h3>
+								<div class="ratings-container">
+									<div class="product-ratings">
+										<span class="ratings" style="width:100%"></span><!-- End .ratings -->
+										<span class="tooltiptext tooltip-top"></span>
+									</div><!-- End .product-ratings -->
+								</div><!-- End .product-container -->
+								<div class="price-box">
+									<span class="old-price">$59.00</span>
+									<span class="product-price">$49.00</span>
+								</div><!-- End .price-box -->
+							</div><!-- End .product-details -->
+						</div>
+					</div>
+			
+				</div>
+				</section>
+				{% endfor %}
+					
+
+	{% endblock %}

@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+		<main class="main">
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Pages</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol>
+				</div><!-- End .container -->
+			</nav>
+
+			{% include 'alert.html' %}
+
+						<script>
+							setTimeout(function(){
+							  if ($('#msg').length > 0){
+								$('#msg').remove();
+								}
+							  },4000)
+							</script>
+
+			<div class="container">
+				<div class="row row-sparse">
+					<div class="col-lg-9 order-lg-last dashboard-content">
+						
+
+						<div class="mb-4"></div><!-- margin -->
+
+						<h3>Account Information</h3>
+
+						<div class="row row-sparse">
+							<div class="col-md-6">
+								<div class="card">
+									<div class="card-header">
+										Contact Information
+										<a href="{% url 'profile_update' %}" class="card-edit">
+										<button type="submit" class="btn btn-primary" style="height:50px;width:120px">Edit</button>
+									</a>
+									</div><!-- End .card-header -->
+
+									<div class="card-body">
+										<p>
+											<div class="card-header">{{user.fname}}{{user.lname}}</div><br>
+											<div class="card-header">{{user.email}}</div><br>
+											<div class="card-header">{{user.phone_number}}</div><br>
+											<button id="button" onclick="passhide(mydivss)" style="width:120px;border:none;color:#fff;background-color:#000;border-radius:3px;height:36px;margin-top:6px;">Change Password</button>
+										</p>
+									</div><!-- End .card-body -->
+								</div><!-- End .card -->
+							</div><!-- End .col-md-6 -->
+						</div><!-- End .row -->
+
+
+
+
+
+
+
+<script>
+								function validate()
+							   {
+						  
+								   var ph = document.getElementById("tel").value;
+								   if(ph=="")
+							{
+								document.getElementById('pe').style.display = "block";
+			
+								document.getElementById('pe').innerHTML="**Please Enter Password";
+								return false;
+							}
+											   else{
+									   document.getElementById('pe').style.display = "none";
+								   }
+									var d=document.getElementById('password').value;
+			   
+									var e=document.getElementById('cpassword').value;
+									if(d=="")
+							{
+								document.getElementById('pss').style.display = "block";
+			
+								document.getElementById('pss').innerHTML="**Please Enter new password";
+								return false;
+							}
+							   else{
+									   document.getElementById('pss').style.display = "none";
+								   }
+								   if(e=="")
+							{
+								document.getElementById('cpss').style.display = "block";
+			
+								document.getElementById('cpss').innerHTML="**Please Enter Conform password";
+								return false;
+							}
+			   
+							   if(d!=e)
+							   {
+								   document.getElementById('cpss').style.display = "block";
+			   
+								   document.getElementById('cpss').innerHTML="**Incorrect Password";
+								   return false;
+							   }
+									   else
+										 {
+											 document.getElementById('cpss').style.display = "none";
+			   
+								   return true;
+							   }
+			   
+			   
+							   }
+							   function onclear()
+							   {
+								document.getElementById('pss').style.display = "none";
+							   }
+							   </script>
+
+						<div style="display:none;" id="passhides" style="display:none;">
+							<form action="{% url 'changepassword' %}" method="post" onsubmit="return validate();">
+								{% csrf_token %}
+								<script type="text/javascript">
+									mydivss = document.getElementById("passhides");
+										function passhide(d) {
+											d.style.display = (d.style.display !== "none") ? "none" : "block";
+										}
+								 </script>
+
+								 <div class="col-md-6">
+									<div class="form-group required-field">
+										<label for="acc-pass2">Curent Password</label>
+										<input type="password" id="tel" class="form-control"   name="current_password" placeholder="Curent password"  onblur="return validate()" onKeyUp="return validate()">
+                                        <span id="pe" style="color: red;"></span>
+									</div><!-- End .form-group -->
+								</div><!-- End .col-md-6 -->
+								<div class="col-md-6">
+									<div class="form-group required-field">
+										<label for="acc-pass2">New Password</label>
+										<input type="password" id="password" class="form-control"  name="new_password" placeholder=" New Password" onclick="return onclear()">
+                                        <span id="pss" style="color: red;"></span>
+
+										<style>
+											/* The message box is shown when the user clicks on the password field */
+											   #message {
+											   display:none;
+											   background:#fff;
+											   color: #000;
+											   position: relative;
+											   padding: 20px;
+											   margin-top: 10px;
+											   }
+																   #message p {
+											   padding: 1px 35px;
+											   font-size: 14px;
+											   }
+											   /* Add a green text color and a checkmark when the requirements are right */
+											   .valid {
+											   color: green;
+											   }
+
+											   .valid:before {
+											   position: relative;
+											   left: -25px;
+											   content: "✔";
+											   }
+
+											   /* Add a red text color and an "x" when the requirements are wrong */
+											   .invalid {
+											   color: red;
+											   }
+
+											   .invalid:before {
+											   position: relative;
+											   left: -25px;
+											   content: "✖";
+											   }
+											   </style>
+
+											   <div id="message">
+												<!--                                                    <h4 style="color:rgb(249, 164, 61) ;">Password must contain the following:</h4>-->
+																										<p id="letter" class="invalid">A lowercase letter</p>
+																										<p id="capital" class="invalid">A capital (uppercase) letter</p>
+																										<p id="number" class="invalid">A number</p>
+																										<p id="length" class="invalid">Minimum 8 characters</b></p>
+																									 </div>
+																								<script>
+																						var myInput = document.getElementById("password");
+																						var letter = document.getElementById("letter");
+																						var capital = document.getElementById("capital");
+																						var number = document.getElementById("number");
+																						var length = document.getElementById("length");
+																						myInput.onfocus = function() {
+																						document.getElementById("message").style.display = "block";
+																						}
+																						myInput.onblur = function() {
+																						document.getElementById("message").style.display = "none";
+																						}
+																						// When the user starts to type something inside the password field
+																						myInput.onkeyup = function() {
+																						// Validate lowercase letters
+																						var lowerCaseLetters = /[a-z]/g;
+																						if(myInput.value.match(lowerCaseLetters)) {
+																							letter.classList.remove("invalid");
+																							letter.classList.add("valid");
+																						} else {
+																							letter.classList.remove("valid");
+																							letter.classList.add("invalid");
+																						}
+												
+																						// Validate capital letters
+																						var upperCaseLetters = /[A-Z]/g;
+																						if(myInput.value.match(upperCaseLetters)) {
+																							capital.classList.remove("invalid");
+																							capital.classList.add("valid");
+																						} else {
+																							capital.classList.remove("valid");
+																							capital.classList.add("invalid");
+																						}
+												
+																						// Validate numbers
+																						var numbers = /[0-9]/g;
+																						if(myInput.value.match(numbers)) {
+																							number.classList.remove("invalid");
+																							number.classList.add("valid");
+																						} else {
+																							number.classList.remove("valid");
+																							number.classList.add("invalid");
+																						}
+												
+																						// Validate length
+																						if(myInput.value.length >= 8) {
+																							length.classList.remove("invalid");
+																							length.classList.add("valid");
+																						} else {
+																							length.classList.remove("valid");
+																							length.classList.add("invalid");
+																						}
+																						}
+																					</script>
+									</div><!-- End .form-group -->
+								</div><!-- End .col-md-6 -->
+								<div class="col-md-6">
+									<div class="form-group required-field">
+										<label for="acc-pass2">Cornfirm Password</label>
+										<input type="password" id="cpassword" class="form-control" name="confirm_password" placeholder="Conform Password" onblur="return validate()" onKeyUp="return validate()">
+										<span id="cpss" style="color: red;"></span>
+									</div><!-- End .form-group -->
+								</div><!-- End .col-md-6 -->
+
+									<input style="width:90px;border:none;color:#fff;background-color:#000;border-radius:3px;height:36px;margin-top:6px;" type="submit" value="submit">
+									</form>
+						   </div>
+
+
+
+
+
+
+
+
+
+						<div class="card">
+							<div class="card-header">
+								Address Book
+								{% comment %} <a href="#" class="card-edit">Edit</a> {% endcomment %}
+								<div class="card-edit">
+									<a href="{% url 'address' %}" > <button class="btn btn-primary">ADD</button></a>
+								</div>
+							</div><!-- End .card-header -->
+
+							<div class="card-body">
+								<div class="row row-sparse">
+									<div class="col-md-6">
+										<h4 class="">Default Billing Address</h4>
+										<address>
+											{% for i in addres %}
+											<div class="card-header"><div>{{i.fname}}
+												{{i.lname}}<br>
+												{{i.phone_no}}<br>
+												{{i.email}}<br>
+												{{i.hname}}<br>
+												{{i.street}}<br>
+												{{i.city}}<br>
+												{{i.district}}<br>
+												{{i.pin}}
+											</div>
+												<a href="{% url 'de_addres' i.id %}"><button type="submit" class="btn btn-primary" style="height:50px;width:120px">DELETE</button></a></div><br>
+											{% endfor %}<br>
+											{% comment %} <div class="card-edit">
+												<button type="submit" class="btn btn-primary" style="height:50px;width:120px">DELETE</button>
+											</div> {% endcomment %}
+										</address>
+									</div>
+									{% comment %} <div class="col-md-6">
+										<h4 class="">Default Shipping Address</h4>
+										
+									</div> {% endcomment %}
+								</div>
+							</div><!-- End .card-body -->
+						</div><!-- End .card -->
+					</div><!-- End .col-lg-9 -->
+
+					<aside class="sidebar col-lg-3">
+						<br><br><br>
+						<div class="widget widget-dashboard">
+							<h3 class="widget-title"></h3>
+
+							<ul class="list">
+								<li class="active"><a href="#">Account Dashboard</a></li>
+								<li><a href="{% url 'profile' %}">Account Information</a></li>
+								<li><a href="{% url 'address' %}">Add Address Book</a></li>
+								{% comment %} <li><a href="#">My Orders</a></li>
+								<li><a href="#">Billing Agreements</a></li>
+								<li><a href="#">Recurring Profiles</a></li>
+								<li><a href="#">My Product Reviews</a></li>
+								<li><a href="#">My Tags</a></li>
+								<li><a href="#">My Wishlist</a></li>
+								<li><a href="#">My Applications</a></li>
+								<li><a href="#">Newsletter Subscriptions</a></li>
+								<li><a href="#">My Downloadable Products</a></li> {% endcomment %}
+							</ul>
+						</div><!-- End .widget -->
+					</aside><!-- End .col-lg-3 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-5"></div><!-- margin -->
+		</main><!-- End .main -->
+		{% endblock %}
+		

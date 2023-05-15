@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main class="main">
+	{% include 'alert.html' %}
+
+						<script>
+							setTimeout(function(){
+							  if ($('#msg').length > 0){
+								$('#msg').remove();
+								}
+							  },4000)
+							</script>
+	<nav aria-label="breadcrumb" class="breadcrumb-nav">
+		
+	</nav>
+<br><br>
+	<div class="page-header">
+		<div class="container">
+			<h1>Order History</h1>
+		</div><!-- End .container -->
+	</div><!-- End .page-header -->
+
+	<div class="container">
+		<div class="row row-sparse">
+			<div class="col-lg-8 padding-right-lg">
+				<div class="cart-table-container">
+					<table class="table table-cart">
+						<thead>
+							<tr>
+								<th class="product-col">Product</th>
+								<th class="price-col">Price</th>
+								<th>Quantity</th>
+								<th>date</th>
+								<th>BILL</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for i in item %}
+									<tr class="product-row">
+										<td class="product-col">
+											<figure class="product-image-container">
+												<a href="{% url 'product_d' i.id %}" class="product-image">
+													<img src="{{i.product.product_image.url}}" alt="product" style="width:90px;height:90px">
+												</a>
+											</figure>
+											<h2 class="product-title">
+												<a href="product.html">{{i.product.name}}</a>
+											</h2>
+										</td>
+										<td>₹ {{i.product.selling_price}}</td>
+										
+										<td>{{i.quantity}}</td>
+										<td>{{i.payment.created_at}}</td>
+										<td> <a href="{% url 'pdf' i.id %}"><button style="display:block; margin:0 auto;" class="pay-button" >Bill</button></a></td>
+
+										{% comment %} <td>
+											
+											<div class="product-action">
+												<div class="product-single-qty">
+													
+												</div><!-- End .product-single-qty -->
+												<a href="{% url 'addcart' i.product.id %}" class="btn btn-dark add-cart" title="Add to Cart">Add to Cart</a>
+											</div>
+											
+										</td> {% endcomment %}
+											{% comment %} <tr class="product-action-row">
+												<td colspan="4" class="clearfix">
+													
+													
+													<div class="float-right">
+														<a href="{% url 'de_wishlist' i.id %}" title="Remove product" class="btn-remove icon-cancel"><span class="sr-only">Remove</span></a>
+													</div><!-- End .float-right -->
+												</td>
+											</tr> {% endcomment %}
+									</tr>			
+									{% endfor %}
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="4" class="clearfix">
+											<div class="float-left">
+												<a href="{% url 'index' %}" class="btn btn-outline-secondary">Continue Shopping</a>
+											</div><!-- End .float-left -->
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div><!-- End .cart-table-container -->
+					</div><!-- End .col-lg-8 -->
+						</div><!-- End .cart-summary -->
+					</div><!-- End .col-lg-4 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-6"></div><!-- margin -->
+		</main><!-- End .main -->
+
+		{% endblock %}

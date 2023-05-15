@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+		<main class="main">
+			{% include 'alert.html' %}
+
+			<script>
+				setTimeout(function(){
+				  if ($('#msg').length > 0){
+					$('#msg').remove();
+					}
+				  },4000)
+				</script>
+			
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					{% comment %} <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Pages</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol> {% endcomment %}
+				</div><!-- End .container -->
+			</nav>
+
+			<script>
+			// For Shipping Address
+			function formvalidate()
+			{
+			   
+			 var a=document.getElementById("nme").value.trim();
+
+			 var p=/^[a-zA-Z^\s]+$/;
+				if(a=="")
+				 {
+					 document.getElementById('fns').style.display = "block";
+
+					 document.getElementById('fns').innerHTML="**Please Enter  First Name";
+					 return false;
+				 }
+			 if (/[^a-zA-Z^\s]/.test(a))
+			 {
+				 document.getElementById('fns').style.display="block";
+				 document.getElementById('fns').innerHTML="**Only Alphabets Allowed";
+				 return false;
+			 }
+				else{
+					document.getElementById('fns').style.display = "none";
+				   
+				}
+			 var b=document.getElementById("lnme").value;
+				if(b=="")
+		 {
+			 document.getElementById('kn').style.display = "block";
+
+			 document.getElementById('kn').innerHTML="**Please Enter  Last Name";
+			 return false;
+		 }
+			 if (/[^a-zA-Z^\s]/.test(b))
+			 {
+				 document.getElementById('kn').style.display="block";
+				 document.getElementById('kn').innerHTML="**Only Alphabets Allowed";
+				 return false;
+			 }
+				else{
+					document.getElementById('kn').style.display = "none";          
+				}
+
+				var phq = document.getElementById("phl").value;
+				var exprs = /^[6-9]\d{9}$/;
+				if(phq=="")
+		 {
+			 document.getElementById('pp').style.display = "block";
+
+			 document.getElementById('pp').innerHTML="**Please Enter  phone";
+			 return false;
+		 }
+				if(phq!="" && exprs.test(phq)==false){
+					document.getElementById('pp').style.display = "block";
+					document.getElementById('pp').innerHTML = "Invalid Phone number";
+					return false;
+							}
+							else{
+					document.getElementById('pp').style.display = "none";
+					
+				}
+				var aa=document.getElementById("eemail").value;
+				var stt=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+				if(aa=="")
+		 {
+			 document.getElementById('ela').style.display = "block";
+
+			 document.getElementById('ela').innerHTML="**Please Enter  Email";
+			 return false;
+		 }
+				if(aa!="" && stt.test(aa)==false){
+
+					document.getElementById('ela').style.display = "block";
+					document.getElementById('ela').innerHTML = "Invalid Email id";
+					return false;
+				}
+				else{
+					document.getElementById('ela').style.display = "none";
+				}
+				var ee=document.getElementById('hnamee').value.trim();
+				if(ee=="")
+			 {
+				 document.getElementById('hho').style.display="block";
+				 document.getElementById('hho').innerHTML="**Please Enter House Name";
+				 return false;
+			 }else{
+				 document.getElementById('hho').style.display = "none";
+				}
+				var ff=document.getElementById('strename').value.trim();
+				if(ff=="")
+			 {
+				 document.getElementById('sss').style.display="block";
+				 document.getElementById('sss').innerHTML="**Please Enter Street Name";
+				 return false;
+			 }else{
+				 document.getElementById('sss').style.display = "none";
+				}
+				var gg=document.getElementById('cityname').value.trim();
+				if(gg=="")
+			 {
+				 document.getElementById('kkk').style.display="block";
+				 document.getElementById('kkk').innerHTML="**Please Enter City Name";
+				 return false;
+			 }else{
+				 document.getElementById('kkk').style.display = "none";
+				}
+
+
+
+				var ggg=document.getElementById('pcode').value.trim();
+				if(ggg=="")
+				 {
+					 document.getElementById('mmm').style.display="block";
+					 document.getElementById('mmm').innerHTML="**Please Enter PostalCode";
+					 return false;
+				 } 
+				 if(ggg.length>6||ggg.length<6){
+					 document.getElementById('mmm').style.display="block";
+					 document.getElementById('mmm').innerHTML="**Enter 6 digit valid Code";
+					 return false;
+				 }
+				
+				 if (!/^[0-9]+$/.test(ggg))
+				 {
+					 document.getElementById('mmm').style.display="block";
+					 document.getElementById('mmm').innerHTML="**Only Numbers Allowed";
+					 return false;
+				 }else{
+					 document.getElementById('mmm').style.display="none";
+				 }
+				var ww=document.getElementById('dis').value.trim();
+
+				 if(ww=="")
+				 {
+					 document.getElementById('nnn').style.display="block";
+					 document.getElementById('nnn').innerHTML="**Please select District";
+					 return false;
+				 }
+				 else{
+					 document.getElementById('nnn').style.display="none";
+					 return true; 
+
+				 }
+			}
+			</script>
+			<br><br><br><br><br><br>
+			<div class="container">
+				<div class="row row-sparse">
+					<div class="col-lg-9 order-lg-last dashboard-content">
+						<h2 class="text-primary">Address Information</h2>
+						
+						<form action="{% url 'address' %}" method="post" onsubmit="return formvalidate();">
+                            {% csrf_token %}
+							<div class="row row-sparse">
+								<div class="col-sm-11">
+									<div class="row row-sparse">
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-name">First Name</label>
+												<input type="text" class="form-control" id="nme" name="fname" placeholder="First Name" onblur="return formvalidate()" onKeyUp="return formvalidate()">
+												<span id="fns" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group">
+												<label for="acc-mname">Last Name</label>
+												<input type="text" id="lnme"  name="lname" class="form-control" placeholder="Last Name"  onblur="return formvalidate()" onKeyUp="return formvalidate()" >
+                                                <span id="kn" style="color: red;"></span>        
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-lastname">phone No.</label>
+												<input type="text" id="phl" name="phone" class="form-control" minlength="10" maxlength="10" placeholder="Phone"  onblur="return formvalidate()" onKeyUp="return formvalidate()" >
+												<span id="pp" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+									</div><!-- End .row -->
+								</div><!-- End .col-sm-11 -->
+							</div><!-- End .row -->
+							<div class="row row-sparse">
+								<div class="col-sm-11">
+									<div class="row row-sparse">
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-name">Email</label>
+												<input type="text" id="eemail" name="email" class="form-control" placeholder="Email"  onblur="return formvalidate()" onKeyUp="return formvalidate()">
+												<span id="ela" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-name">House Name</label>
+												<input type="text" id="hnamee" name="hname" class="form-control" placeholder="House Name" onblur="return formvalidate()" onKeyUp="return formvalidate()" >
+                                                 <span id="hho" style="color: red;"></span>
+								 			</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-lastname">Street</label>
+												<input type="text" id="strename" name="street" class="form-control" placeholder="Street" onblur="return formvalidate()" onKeyUp="return formvalidate()"  >
+                                                <span id="sss" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+									</div><!-- End .row -->
+								</div><!-- End .col-sm-11 -->
+							</div><!-- End .row -->
+							<div class="row row-sparse">
+								<div class="col-sm-11">
+									<div class="row row-sparse">
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-name">city</label>
+												<input type="text" id="cityname"  name="city" class="form-control" placeholder="City"  onblur="return formvalidate()" onKeyUp="return formvalidate()" >
+                                                 <span id="kkk" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group" class="form-group required-field">
+												<label for="acc-name">District</label>
+												<div class="select-custom">
+													<select class="select-box" name="district" id="dis">
+														<option value="Wayanade">Wayanade</option>
+														<option value="Calicut">Calicut</option>
+														<option value="Kottayam">Kottayam</option>
+														<option value="Kannur">Kannur</option>
+													</select>
+													<span id="nnn" style="color: red;"></span>
+												</div class="form-control"><!-- End .select-custom -->
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-lastname">Pin Code</label>
+												<input type="text" id="pcode" name="pin" class="form-control" placeholder="Pincode"  minlength="6" maxlength="6"  onblur="return formvalidate()" onKeyUp="return formvalidate()" >
+												<span id="mmm" style="color: red;"></span>
+											</div><!-- End .form-group -->                          	
+										</div><!-- End .col-md-4 -->
+									</div><!-- End .row -->
+								</div><!-- End .col-sm-11 -->
+							</div><!-- End .row -->
+							<div class="form-footer">
+								<div class="form-footer-right">
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</div><!-- End .form-footer -->
+						</form>
+					</div><!-- End .col-lg-9 -->
+
+					<aside class="sidebar col-lg-3">
+						
+						<br><br><br>
+						<div class="widget widget-dashboard">
+							<h3 class="widget-title"></h3>
+
+							<ul class="list">
+								<li class="active"><a href="#">Account Dashboard</a></li>
+								<li><a href="{% url 'profile' %}">Account Information</a></li>
+								<li><a href="{% url 'address' %}">Add Address Book</a></li>
+								{% comment %} <li><a href="#">My Orders</a></li>
+								<li><a href="#">Billing Agreements</a></li>
+								<li><a href="#">My Product Reviews</a></li>
+								<li><a href="#">My Tags</a></li>
+								<li><a href="#">My Wishlist</a></li>
+								<li><a href="#">My Applications</a></li>
+								<li><a href="#">Newsletter Subscriptions</a></li>
+								<li><a href="#">My Downloadable Products</a></li> {% endcomment %}
+							</ul>
+						</div><!-- End .widget -->
+					</aside><!-- End .col-lg-3 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-5"></div><!-- margin -->
+		</main><!-- End .main -->
+
+		{% endblock %}
+
+		

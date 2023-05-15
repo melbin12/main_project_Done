@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div style="height:300px;text-align: center;">
+    <h2 style="font-family: sans-serif;color: rgb(246, 86, 12); margin-top: 130px;" >Payment success !!!!</h2><br>
+    <div class="button-area">
+      </div>
+</div>
+{% for i in orders|slice:":1" %}   
+<p><a href="{% url 'pdf' i.id %}" style="display:block; margin:0 auto;">Download bill</a></p>
+{% endfor %}
+<a href="{% url 'index' %}"><button href="{% url 'index' %}" class="pay-button" style="display:block; margin:0 auto;">Continue Shopping</button></a>
+<style>
+  .pay-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    }
+  </style>
+
+{% endblock %}

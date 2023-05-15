@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+		<main class="main">
+
+			{% include 'alert.html' %}
+
+						<script>
+							setTimeout(function(){
+							  if ($('#msg').length > 0){
+								$('#msg').remove();
+								}
+							  },4000)
+							</script>
+							
+			<nav aria-label="breadcrumb" class="breadcrumb-nav">
+				<div class="container">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Pages</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol>
+				</div><!-- End .container -->
+			</nav>
+
+
+
+			<script>
+				function validate()
+			   {
+				   var f=document.getElementById("fname").value.trim();
+				   var l=document.getElementById("lname").value;
+				   var s=/^[a-zA-Z^\s]+$/;
+				   if(f=="")
+			{
+				document.getElementById('fn').style.display = "block";
+
+				document.getElementById('fn').innerHTML="**Please Enter  First Name";
+				return false;
+			}
+				   if(f!="" && s.test(f)==false){
+
+					   document.getElementById('fn').style.display = "block";
+					   document.getElementById('fn').innerHTML = "Invalid Fname";
+					   return false;
+				   }
+				   else{
+					   document.getElementById('fn').style.display = "none";
+				   }
+				   if(l=="")
+			{
+				document.getElementById('ln').style.display = "block";
+
+				document.getElementById('ln').innerHTML="**Please Enter  Last Name";
+				return false;
+			}
+				   if(l!="" && s.test(l)==false){
+
+					   document.getElementById('ln').style.display = "block";
+					   document.getElementById('ln').innerHTML = "Invalid Lname";
+					   return false;
+				   }
+				   else{
+					   document.getElementById('ln').style.display = "none";
+				   }
+
+				   var a=document.getElementById("email").value;
+				   var st=/^[\w\+\'\.-]+@[\w\'\.-]+\.[a-zA-Z]{2,}$/;
+				   if(a=="")
+			{
+				document.getElementById('el').style.display = "block";
+
+				document.getElementById('el').innerHTML="**Please Enter  Email";
+				return false;
+			}
+				   if(a!="" && st.test(a)==false){
+
+					   document.getElementById('el').style.display = "block";
+					   document.getElementById('el').innerHTML = "Invalid Email id";
+					   return false;
+				   }
+				   else{
+					   document.getElementById('el').style.display = "none";
+				   }
+
+				   var ph = document.getElementById("tel").value;
+				   var expr = /^[6-9]\d{9}$/;
+				   if(ph=="")
+			{
+				document.getElementById('pe').style.display = "block";
+
+				document.getElementById('pe').innerHTML="**Please Enter  phone";
+				return false;
+			}
+				   if(ph!="" && expr.test(ph)==false){
+					   document.getElementById('pe').style.display = "block";
+					   document.getElementById('pe').innerHTML = "Invalid Phone number";
+					   return false;
+							   }
+							   else{
+					   document.getElementById('pe').style.display = "none";
+				   }
+					var d=document.getElementById('password').value;
+
+					var e=document.getElementById('cpassword').value;
+					if(d=="")
+			{
+				document.getElementById('pss').style.display = "block";
+
+				document.getElementById('pss').innerHTML="**Please Enter  password";
+				return false;
+			}
+			   else{
+					   document.getElementById('pss').style.display = "none";
+				   }
+				   if(e=="")
+			{
+				document.getElementById('cpss').style.display = "block";
+
+				document.getElementById('cpss').innerHTML="**Please Enter Conform password";
+				return false;
+			}
+
+			   if(d!=e)
+			   {
+				   document.getElementById('cpss').style.display = "block";
+
+				   document.getElementById('cpss').innerHTML="**Incorrect Password";
+				   return false;
+			   }
+					   else
+						 {
+							 document.getElementById('cpss').style.display = "none";
+
+				   return true;
+			   }
+
+
+			   }
+			   function onclear()
+			   {
+				document.getElementById('pss').style.display = "none";    
+			   }
+
+			</script>
+
+			<div class="container">
+				<div class="row row-sparse">
+					<div class="col-lg-9 order-lg-last dashboard-content">
+						<h2 class="text-primary">Edit Account Information</h2>
+						<form action="{% url 'profile_update' %}" method="post" onsubmit="return validate();">
+                            {% csrf_token %}
+							<div class="row row-sparse">
+								<div class="col-sm-11">
+									<div class="row row-sparse">
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-name">First Name</label>
+												<input type="text" id="fname" class="form-control" name="fname" value="{{user.fname}}" onblur="return validate()" onKeyUp="return validate()" >
+                                                <span id="fn" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-lastname">Last Name</label>
+												<input type="text" id="lname" class="form-control" name="lname" value="{{user.lname}}" onblur="return validate()" onKeyUp="return validate()">
+                                                <span id="ln" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+
+										<div class="col-md-4">
+											<div class="form-group required-field">
+												<label for="acc-lastname">Phone No.</label>
+												<input type="text" id="tel" class="form-control"  name="phone_number" value="{{user.phone_number}}" minlength="10" maxlength="10" onblur="return validate()" onKeyUp="return validate()">
+                                                <span id="pe" style="color: red;"></span>
+											</div><!-- End .form-group -->
+										</div><!-- End .col-md-4 -->
+									</div><!-- End .row -->
+								</div><!-- End .col-sm-11 -->
+							</div><!-- End .row -->
+
+							<div class="form-group required-field">
+								<label for="acc-email">Email</label>
+								<input type="text" id="eml" class="form-control"  name="email" value="{{user.email}}" onblur="return validate()" onKeyUp="return validate()" readonly>
+                                <span id="el" style="color: red;"></span>
+							</div><!-- End .form-group -->
+						
+
+							
+
+							<div class="mb-2"></div><!-- margin -->
+
+							{% comment %} <div class="custom-control custom-checkbox">
+								<a href="{% url 'changepassword' %}">
+								<input type="checkbox" class="custom-control-input" id="change-pass-checkbox" value="1">
+								<label class="custom-control-label" for="change-pass-checkbox">Change Password ?</label>
+							</a>
+							</div><!-- End .custom-checkbox --> {% endcomment %}  
+
+							
+
+							<div id="account-chage-pass">
+								<h3 class="mb-2">Change Password</h3>
+								<div class="row row-sparse">
+									<div class="col-md-6">
+										<div class="form-group required-field">
+											<label for="acc-pass2">Password</label>
+											<input type="password" class="form-control" id="acc-pass2" name="acc-pass2">
+										</div><!-- End .form-group -->
+									</div><!-- End .col-md-6 -->
+
+									<div class="col-md-6">
+										<div class="form-group required-field">
+											<label for="acc-pass3">Confirm Password</label>
+											<input type="password" class="form-control" id="acc-pass3" name="acc-pass3">
+										</div><!-- End .form-group -->
+									</div><!-- End .col-md-6 -->
+								</div><!-- End .row -->
+							</div><!-- End #account-chage-pass -->
+
+							{% comment %} <div class="required text-right">* Required Field</div> {% endcomment %}
+							<div class="form-footer">
+								<a href="{% url 'profile' %}"><i class="icon-angle-double-left"></i>Back</a>
+
+								<div class="form-footer-right">
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</div><!-- End .form-footer -->
+						</form>
+					</div><!-- End .col-lg-9 -->
+
+					<aside class="sidebar col-lg-3">
+						<br><br><br>
+						<div class="widget widget-dashboard">
+							<h3 class="widget-title"></h3>
+
+							<ul class="list">
+								<li class="active"><a href="#">Account Dashboard</a></li>
+								<li><a href="{% url 'profile' %}">Account Information</a></li>
+								<li><a href="{% url 'address' %}">Add Address Book</a></li>
+								{% comment %} <li><a href="#">My Orders</a></li>
+								<li><a href="#">Billing Agreements</a></li>
+								<li><a href="#">Recurring Profiles</a></li>
+								<li><a href="#">My Product Reviews</a></li>
+								<li><a href="#">My Tags</a></li>
+								<li><a href="#">My Wishlist</a></li>
+								<li><a href="#">My Applications</a></li>
+								
+								<li><a href="#">My Downloadable Products</a></li> {% endcomment %}
+							</ul>
+						</div><!-- End .widget -->
+					</aside><!-- End .col-lg-3 -->
+				</div><!-- End .row -->
+			</div><!-- End .container -->
+
+			<div class="mb-5"></div><!-- margin -->
+		</main><!-- End .main -->
+		{% endblock %}
+		
+			
